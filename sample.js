@@ -14,6 +14,14 @@ function main() {
 }
 main()
 
+function countValue(array, val) {
+    let count = 0
+    array.forEach(e => {if(e === val)  count++ })
+    return count
+}
+
+
+
 function reverseArray(a) {
     let half = Math.trunc(a.length / 2)
     for(let i = 0; i < half; i++)
