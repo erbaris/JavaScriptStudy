@@ -1,18 +1,97 @@
-function main() {
+let write = a => process.stdout.write(a)
+let writeLine = a => write(a === undefined ? '\n' : `${a}\n`)
+let randomInt = (min, max) => Math.floor(Math.random() * (max - min)) + min + 1
+let randomText = (n, text) => {
+    let str = ""
+    let len = text.length;
 
-    let a = [1, 2, 3, 4, 5]
+    for (let i = 0; i < n; ++i)
+        str += text.charAt(randomInt(0, len))
 
-    reverseArray(a)
-
-    writeLine(a)
-
-    //console.log("test)
-
-    fibonacciTest()
-    console.log(nextFibonacciNumber(1343))
-    
+    return str
 }
+let randomTextTR = (n) => randomText(n, "ABCÇDEFGĞHIİJKLMNOÖPRSŞTUÜVYZabcçdefgğhıijklmnoöprsştuüvyz")
+
+let randomTextsTR = (n, min, bound) => {
+    let result = [];
+
+    while (n--)
+        result.push(randomTextTR(randomInt(min, bound)))
+
+    return result
+}
+
+let randomTextEN = (n) =>  randomText(n, "ABCDEFGHIJKLMNOPQRSTUWXVYZabcdefghijklmnopqrstuwxvyz")
+
+let randomTextsEN = (n, min, bound) => {
+    let result = [];
+
+    while (n--)
+        result.push(randomTextEN(randomInt(min, bound)))
+
+    return result
+}
+
+let Product = function (id, name, stock, cost, price) {
+    this.id = id;
+    this.name = name;
+    this.stock = stock;
+    this.cost = cost;
+    this.price = price;
+    this.getTotal =  function () {return this.stock * this.price }
+    this.toString = function () {return this.name}
+}
+
+let createRandomProducts = (count) =>  {
+    let products = []
+    while(count--) {
+        products.push(new Product(randomInt(0, 1000), randomTextEN(randomInt(0, 20)), randomInt(0, 2) - 1 ? randomInt(0, 1000) : 0, randomInt(0, 10_000), randomInt(10_000, 100_000)));
+    }
+    return products
+}
+
+Array.prototype.partition = function(pred) {
+    let partitionIdx = this.length
+    let i = 0
+    while(i < partitionIdx){
+        if(pred(this[i]))
+            swap(this, i , --partitionIdx)
+        else
+            i++
+    }
+    return partitionIdx
+}
+
+let main = () => {
+    let a = [2, 0, 7, 3, 4, 5]
+
+    let partitionIndex = a.partition(x => x % 2 === 0)
+
+    a.forEach(e => write(`${e} `))
+
+    writeLine()
+
+    writeLine(partitionIndex)
+
+}
+
 main()
+
+let randomProductTest = () => {
+    writeLine('---randomProductTest---')
+    let products = createRandomProducts(100)
+    products.forEach(p => {writeLine(`id: ${p.id}, name: ${p.name}, stock: ${p.stock}, cost: ${p.cost}, price: ${p.price}, total: ${p.getTotal()}`)})
+    // Stokta bulunan ürünleri maliyet fiyatına göre pahalıdan ucuza doğru sıralayınız
+    // Stokta bulunmayan ürünleri total miktarına göre sıralayınız
+
+    writeLine("\n\n\n---Sorted according to cost with stock---\n\n\n")
+    products.sort((a, b) => b.cost - a.cost).filter(p => p.stock > 0).forEach(p => {writeLine(`id: ${p.id},      name: ${p.name} \n                  stock: ${p.stock},  cost: ${p.cost},       price: ${p.price},     total: ${p.getTotal()}`)})
+
+    writeLine("\n\n\n---Sorted according to Total---\n\n\n")
+    products.sort((a, b) => a.getTotal() - b.getTotal()).filter(p => p.stock > 0).forEach(p => {writeLine(`id: ${p.id},      name: ${p.name} \n                  stock: ${p.stock},  cost: ${p.cost},       price: ${p.price},     total: ${p.getTotal()}`)})
+
+}
+randomProductTest()
 
 function countValue(array, val) {
     let count = 0
@@ -32,14 +111,6 @@ function swap(a, i, j) {
     let tmp = a[i]
     a[i] = a[j]
     a[j] = tmp
-}
-
-function write(a) {
-    process.stdout.write(a)
-}
-
-function writeLine(a) {
-    write(a === undefined ? '\n' : `${a}\n`)
 }
 
 function nextFibonacciNumber(a) {
