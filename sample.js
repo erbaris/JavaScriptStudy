@@ -62,16 +62,28 @@ Array.prototype.partition = function(pred) {
     return partitionIdx
 }
 
-let main = () => {
+const partitionTest = () => {
     let a = [2, 0, 7, 3, 4, 5]
+    writeLine("---partitionTest---")
+    writeLine("Orijinal array:")
+    a.forEach(e => write(`${e} `))
+    writeLine()
 
     let partitionIndex = a.partition(x => x % 2 === 0)
+
+    writeLine("Partition Array:")
+
 
     a.forEach(e => write(`${e} `))
 
     writeLine()
 
     writeLine(partitionIndex)
+}
+//partitionTest()
+
+let main = () => {
+
 
 }
 
@@ -85,13 +97,71 @@ let randomProductTest = () => {
     // Stokta bulunmayan ürünleri total miktarına göre sıralayınız
 
     writeLine("\n\n\n---Sorted according to cost with stock---\n\n\n")
-    products.sort((a, b) => b.cost - a.cost).filter(p => p.stock > 0).forEach(p => {writeLine(`id: ${p.id},      name: ${p.name} \n                  stock: ${p.stock},  cost: ${p.cost},       price: ${p.price},     total: ${p.getTotal()}`)})
+    products.filter(p => p.stock > 0).sort((a, b) => b.cost - a.cost).forEach(p => {writeLine(`id: ${p.id},      name: ${p.name} \n                  stock: ${p.stock},  cost: ${p.cost},       price: ${p.price},     total: ${p.getTotal()}`)})
 
     writeLine("\n\n\n---Sorted according to Total---\n\n\n")
-    products.sort((a, b) => a.getTotal() - b.getTotal()).filter(p => p.stock > 0).forEach(p => {writeLine(`id: ${p.id},      name: ${p.name} \n                  stock: ${p.stock},  cost: ${p.cost},       price: ${p.price},     total: ${p.getTotal()}`)})
+    products.filter(p => p.stock > 0).sort((a, b) => a.getTotal() - b.getTotal()).forEach(p => {writeLine(`id: ${p.id},      name: ${p.name} \n                  stock: ${p.stock},  cost: ${p.cost},       price: ${p.price},     total: ${p.getTotal()}`)})
 
 }
-randomProductTest()
+//randomProductTest()
+
+const countString = (s1, s2) => {
+    let result = 0
+    for(let i = -1; (i = s1.indexOf(s2, i + 1)) !== -1; )
+        result++
+
+    return result
+}
+
+const countStringTest = () => {
+    const s1 = "Bugün hava çok güzel. Bu çok güzel havada ders mi yapılır"
+    const s2 = "çok"
+    writeLine(countString(s1, s2) === 2)
+    const s3 = "aaa"
+    const s4 = "aa"
+    writeLine(countString(s3, s4) === 2)
+}
+//countStringTest()
+
+const padLeading = (s, len, str) => {
+    if(s.length < len)
+        return str.repeat(len - s.length) + s
+    return s
+}
+
+const padTrailing = (s, len, str) => {
+    if(s.length < len)
+        return s + str.repeat(len - s.length)
+    return s
+}
+const padLeadingTest = () => {
+    writeLine("---padLeadingTest---")
+    writeLine(padLeading("ankara", 10, "x") === "xxxxankara")
+}
+//padLeadingTest()
+
+const padTrailingTest = () => {
+    writeLine("---padTrailingTest---")
+    writeLine(padTrailing("ankara", 10, "x") === "ankaraxxxx")
+}
+//padTrailingTest()
+
+const join = (texts, str) => {
+    let result = ""
+    for(let s of texts) {
+        result = result.concat(s, str)
+    }
+
+    return result.substring(0, result.length - str.length)
+}
+
+const joinTest = () => {
+    let texts = ["ali", "veli", "hüseyin", "fatma", "ayse"]
+    writeLine('---joinTest---')
+    write(join(texts, "-"))
+
+}
+//joinTest()
 
 function countValue(array, val) {
     let count = 0

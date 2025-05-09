@@ -7,6 +7,9 @@ function main() {
     printDiamondTest()
     printDurationTest()
     isAllConditionTest()
+    find2Digit3PrimeMinAndMax()
+    find3Digit3PrimeMinAndMax()
+    nextPrimeTest()
 }
 main()
 
@@ -99,6 +102,7 @@ function printBlank(a) {
 }
 
 function findPrimeSumTest() {
+    writeLine('---findPrimeSumTest---')
     writeLine('12: ')
     findPrimeSum(12)
     writeLine('16: ')
@@ -174,6 +178,7 @@ function printStar(n) {
 }
 
 function printDurationTest() {
+    writeLine('---printDurationTest---')
     write('0: ')
     printDuration(0)
     write('15: ')
@@ -206,10 +211,9 @@ function printDuration(s) {
 }
 
 function isAllConditionTest() {
-    write('113: ' + isAllConditions(113))
-    writeLine()
-    write('112: ' + isAllConditions(112))
-    writeLine()
+    writeLine("---isAllConditionTest---")
+    writeLine('113: ' + isAllConditions(113))
+    writeLine('112: ' + isAllConditions(112))
     let n = 1000
     while (n--)
         if(isAllConditions(n))
@@ -229,6 +233,132 @@ function isAllConditions(val) {
     return cba > abc && isPrime(abc) && isPrime(cba) && isPrime(ab) && isPrime(bc) && isPrime(cb) && isPrime(ba)
 }
 
+function find2Digit3PrimeMinAndMax() {
+    writeLine('---find2Digit3PrimeMinAndMax---')
+    let min = []
+    let minCount = 0
+    for(let i = 1; i < 100; i++){
+        if(isPrime(i)) {
+            min[minCount++] = i
+
+        }
+        if(minCount > 2)
+            break
+    }
+    let minVal = min[0] + min[1] + min[2]
+    writeLine(`min number is ${minVal} = ${min[0]} + ${min[1]} + ${min[2]}`)
+    let primes = []
+    let primeCnt = 0
+    for(let i = 99; i > 0; i--) {
+        if(isPrime(i))
+            primes[primeCnt++] = i
+    }
+    writeLine('All primes:')
+    primes.forEach(p => {write(p + ' ')})
+    writeLine()
+
+
+    let primeCombination3 = combine(primes, 3)
+    let max = []
+    max[0] = 0
+    primeCombination3.forEach(c => {
+        let t = c[0] + c[1] + c[2]
+        if(t < 100)
+            if(t > max) {
+                max[0] = t
+                max[1] = c[0]
+                max[2] = c[1]
+                max[3] = c[2]
+            }
+    })
+
+
+    writeLine(`max number is ${max[0]} = ${max[1]} + ${max[2]} + ${max[3]}`)
+
+}
+
+function find3Digit3PrimeMinAndMax() {
+    writeLine('---find3Digit3PrimeMinAndMax---')
+    let min = []
+    let minCount = 0
+    for(let i = 100; i < 1000; i++){
+        if(isPrime(i)) {
+            min[minCount++] = i
+
+        }
+        if(minCount > 2)
+            break
+    }
+    let minVal = min[0] + min[1] + min[2]
+    writeLine(`min number is ${minVal} = ${min[0]} + ${min[1]} + ${min[2]}`)
+    let primes = []
+    let primeCnt = 0
+    for(let i = 1000; i > 0; i--) {
+        if(isPrime(i))
+            primes[primeCnt++] = i
+    }
+    writeLine('All primes:')
+    primes.forEach(p => {write(p + ' ')})
+    writeLine()
+
+    let primeCombination3 = combine(primes, 3)
+    let max = []
+    max[0] = 0
+    primeCombination3.forEach(c => {
+        let t = c[0] + c[1] + c[2]
+        if(t < 1000)
+            if(t > max) {
+                max[0] = t
+                max[1] = c[0]
+                max[2] = c[1]
+                max[3] = c[2]
+            }
+    })
+
+    writeLine(`max number is ${max[0]} = ${max[1]} + ${max[2]} + ${max[3]}`)
+
+}
+
+function combine(arr, k) {
+    const result = [];
+
+    function combineHelper(startIndex, currentCombination) {
+        if (currentCombination.length === k) {
+            result.push([...currentCombination]); // Mevcut kombinasyonun bir kopyasını ekle
+            return;
+        }
+
+        if (startIndex >= arr.length) {
+            return;
+        }
+
+        currentCombination.push(arr[startIndex]);
+        combineHelper(startIndex + 1, currentCombination);
+
+        currentCombination.pop();
+        combineHelper(startIndex + 1, currentCombination);
+    }
+
+    combineHelper(0, []);
+    return result;
+}
+
+
+
+function nextPrimeTest() {
+    writeLine("---Next Prime Test---")
+    writeLine(`1 next prime is: ${nextPrime(1)}`)
+    writeLine(`3 next prime is: ${nextPrime(3)}`)
+    writeLine(`15 next prime is: ${nextPrime(15)}`)
+    writeLine(`34532 next prime is: ${nextPrime(34532)}`)
+    writeLine(`563840284 next prime is: ${nextPrime(563840284)}`)
+}
+
+function nextPrime(a) {
+    while(!isPrime(++a))
+        ;
+    return a
+}
 
 // HOMEWROK 1
 
