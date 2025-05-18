@@ -1,4 +1,4 @@
-const randomInt = (min, max) => Math.floor(Math.random() * (max - min)) + min + 1
+const randomInt = (min, bound) => Math.floor(Math.random() * (bound - min) + min)
 
 function countValue(array, val) {
     let count = 0

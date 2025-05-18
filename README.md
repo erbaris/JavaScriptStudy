@@ -1,2 +1,2 @@
 # JavaScriptStudy
- Some Study Codes
+ Some Study Codes and homework projects

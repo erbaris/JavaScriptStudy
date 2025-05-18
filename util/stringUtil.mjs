@@ -1,4 +1,4 @@
-import {write, writeLine} from "./console.mjs"
+import {write, writeLine} from "./console.js"
 import {randomInt} from "./numberUtil.mjs"
 
 export const randomText = (n, text) => {
@@ -76,9 +76,8 @@ const padTrailingTest = () => {
 
 export const join = (texts, str) => {
     let result = ""
-    for(let s of texts) {
+    for(let s of texts)
         result = result.concat(s, str)
-    }
 
     return result.substring(0, result.length - str.length)
 }
@@ -86,7 +85,7 @@ export const join = (texts, str) => {
 const joinTest = () => {
     let texts = ["ali", "veli", "hüseyin", "fatma", "ayse"]
     writeLine('---joinTest---')
-    write(join(texts, "-"))
+    write(join(texts, "--"))
 
 }
 //joinTest()

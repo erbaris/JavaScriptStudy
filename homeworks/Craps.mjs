@@ -1,4 +1,4 @@
-import {write, writeLine} from "../util/console.mjs"
+import {write, writeLine} from "../util/console.js"
 import {randomInt} from "../util/numberUtil.mjs"
 
 const playRound = () => {
@@ -13,7 +13,7 @@ const playRound = () => {
             return false
         default:
             let secondRoll
-            while(secondRoll = rollTheDice() !== firstRoll) {
+            while((secondRoll = rollTheDice()) !== firstRoll) {
                 if(secondRoll === 7)
                     return false
             }
@@ -22,7 +22,7 @@ const playRound = () => {
 }
 
 const rollTheDice = () => {
-    return randomInt(0, 6) + randomInt(0, 6)
+    return randomInt(1, 7) + randomInt(1, 7)
 }
 
 const playGame = (n) => {

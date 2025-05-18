@@ -1,6 +1,6 @@
-import {write, writeLine} from "./console.mjs";
+import {write, writeLine} from "./console.js";
 
-Array.prototype.partition = function(pred) {
+Array.prototype.partition = (pred) => {
     let partitionIdx = this.length
     let i = 0
     while(i < partitionIdx){
