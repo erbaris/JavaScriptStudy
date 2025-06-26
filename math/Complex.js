@@ -1,3 +1,8 @@
+const add = (re1, im1, re2, im2) =>  new Complex(re1 + re2, im1 + im2)
+const subtract = (re1, im1, re2, im2) =>  add(re1, im1, -re2, -im2)
+const multiply = (re1, im1, re2, im2) =>  new Complex(re1 * re2 - im1 * im2, re1 * im2 + re2 * im1)
+const divide = (re1, im1, re2, im2) =>  new Complex( (re1 * re2 + im1 * im2) / (re2 * re2 + im2 * im2), (re2 * im1 - re1 * im2) / (re2 * re2 + im2 * im2))
+
 export class Complex {
     constructor(real, imaginary) {
         this._real = real;
@@ -21,26 +26,34 @@ export class Complex {
     }
 
     get norm() {
-        //TODO
+        return Math.sqrt(this._real * this._real + this._imaginary * this._imaginary)
     }
 
     get conjugate() {
-        //TODO
+        new Complex(this._real, -this._imaginary)
     }
 
     add(other) {
-        //TODO
+        add(this._real, this.imaginary, other._real, other._imaginary)
     }
 
     subtract(other) {
-        //TODO
+        return subtract(this._real, this.imaginary, other._real, other._imaginary)
     }
 
     multiply(other) {
-        //TODO
+        multiply(this._real, this.imaginary, other._real, other._imaginary)
     }
 
     divide(other) {
-        //TODO
+        divide(this._real, this.imaginary, other._real, other._imaginary)
+    }
+
+    negate() {
+        return new Complex(-this._real, -this._imaginary)
+    }
+
+    toString() {
+        return `${this._real}${(this._imaginary < 0) ?  (` - i * ${Math.abs(this._imaginary)}`) : (` + i * ${this._imaginary}`)}`
     }
 }
