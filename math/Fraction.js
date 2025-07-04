@@ -11,8 +11,8 @@ Açıklamalar:
 +•	Sınıfın iki kesri toplayan, bir kesir ile bir tamsayıyı toplayan metotları olacaktır. Aynı işlemler çıkarma, çarpma ve bölme için de yapılacaktır.
 +•	Sınıfın kesri 1(bir) artıran ve bir azaltan inc ve dec metotları yazılacaktır.
 +•	Sınıfın toString metodu şu formatta yazı döndürecek şekilde override edilecektir. Örneğin 3 / 10 kesri için -> 3 / 10 = 3.333333 10 / 1 kesri için -> 10 Ondalık kısımda 6 basamak gösterilecektir. Geri kalan basamaklar yuvarlanacaktır.
-•	Sınıfın equals metodu iki kesrin eşitlik karşılaştırması için yazılacaktır.
-•	Sınıfın compareTo metodu iki kesrin büyüklük küçüklük karşılaştırmasını yapacaktır. String sınıfının compareTo metodunun mantığına göre tasarlayınız.
++•	Sınıfın equals metodu iki kesrin eşitlik karşılaştırması için yazılacaktır.
++•	Sınıfın compareTo metodu iki kesrin büyüklük küçüklük karşılaştırmasını yapacaktır. String sınıfının compareTo metodunun mantığına göre tasarlayınız.
 +•	Kesrin double türden ondalık değerini döndüren realValue property elemanı yazılacaktır.
 
 
@@ -81,11 +81,17 @@ export class Fraction {
     }
 
     compareTo(other) {
-
+        let result = this.numerator * other.denominator - other.numerator * this.denominator
+        if(result < 0)
+            return -1
+        else if(result === 0)
+            return 0
+        else
+            return 1
     }
 
     equals(other) {
-
+        return this.numerator.equals(other.numerator) && this.denominator.equals(other.denominator)
     }
 
     inc() {
