@@ -89,11 +89,13 @@ export class Fraction {
     }
 
     inc() {
-        this._numerator += 1
+        this._numerator += this._denominator
+        [this._numerator, this._denominator] = simplify(this._numerator, this._denominator)
     }
 
     dec() {
-        this._numerator -= 1
+        this._numerator -= this._denominator
+        [this._numerator, this._denominator] = simplify(this._numerator, this._denominator)
     }
 
     add(other) {
