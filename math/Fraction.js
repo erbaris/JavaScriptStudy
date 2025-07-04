@@ -8,9 +8,9 @@ Açıklamalar:
 +•	Kesir negatif ise işaret payda bulunacaktır. Örneğin kesrin pay ve paydası sırasıyla 3 ve -4 olarak verilmişse kesir -3 / 4 biçiminde tutulacaktır.
 +•	Kesrin pay ve paydasının her ikisinin birden negatif olması durumunda kesir pozitif olarak tutulacaktır.
 +•	Kesrin payının sıfır olması durumunda payda ne olursa olsun 1(bir) yapılacaktır.
-•	Sınıfın iki kesri toplayan, bir kesir ile bir tamsayıyı toplayan metotları olacaktır. Aynı işlemler çıkarma, çarpma ve bölme için de yapılacaktır.
++•	Sınıfın iki kesri toplayan, bir kesir ile bir tamsayıyı toplayan metotları olacaktır. Aynı işlemler çıkarma, çarpma ve bölme için de yapılacaktır.
 +•	Sınıfın kesri 1(bir) artıran ve bir azaltan inc ve dec metotları yazılacaktır.
-•	Sınıfın toString metodu şu formatta yazı döndürecek şekilde override edilecektir. Örneğin 3 / 10 kesri için -> 3 / 10 = 3.333333 10 / 1 kesri için -> 10 Ondalık kısımda 6 basamak gösterilecektir. Geri kalan basamaklar yuvarlanacaktır.
++•	Sınıfın toString metodu şu formatta yazı döndürecek şekilde override edilecektir. Örneğin 3 / 10 kesri için -> 3 / 10 = 3.333333 10 / 1 kesri için -> 10 Ondalık kısımda 6 basamak gösterilecektir. Geri kalan basamaklar yuvarlanacaktır.
 •	Sınıfın equals metodu iki kesrin eşitlik karşılaştırması için yazılacaktır.
 •	Sınıfın compareTo metodu iki kesrin büyüklük küçüklük karşılaştırmasını yapacaktır. String sınıfının compareTo metodunun mantığına göre tasarlayınız.
 +•	Kesrin double türden ondalık değerini döndüren realValue property elemanı yazılacaktır.
@@ -99,38 +99,44 @@ export class Fraction {
     }
 
     add(other) {
-
+        this._numerator = this._numerator * other.denominator + other.numerator * this._denominator
+        this._denominator *= other.denominator
+        [this._numerator, this._denominator] = simplify(this._numerator, this._denominator)
     }
 
     addWithInt(value) {
-
+        this.numerator += value * this._denominator
     }
 
     subtract(other) {
-
+        this._numerator = this._numerator * other.denominator - other.numerator * this._denominator
+        this._denominator *= other.denominator
+        [this._numerator, this._denominator] = simplify(this._numerator, this._denominator)
     }
 
     subtractWithInt(value) {
-
+        this.numerator -= value * this._denominator
     }
 
     multiply(other) {
-
+        this.numerator = this._numerator * other.denominator
+        this.denominator = this._denominator * other.denominator
     }
 
     multiplyWithInt(value) {
-
+        this.numerator *= value
     }
 
     divide(other) {
-
+        this.numerator *= other.denominator
+        this.denominator = other.numerator
     }
 
     divideWithInt(value) {
-
+        this.denominator *= value
     }
 
     toString() {
-
+        return this.denominator === 1 ? `${this.numerator}` : `${this.numerator} / ${this.denominator} = ${this.realValue.toFixed(6)}`
     }
 }
