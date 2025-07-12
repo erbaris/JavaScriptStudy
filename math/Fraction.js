@@ -29,7 +29,7 @@ const checkError = (numerator, denominator) => {
     if(numerator === 0 && denominator === 0)
         throw new Error('Indeterminate')
     if(denominator === 0)
-        throw new Error('Invalid denominator')
+        throw new Error('Undefined')
 
 }
 
