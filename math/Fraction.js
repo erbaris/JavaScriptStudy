@@ -25,7 +25,16 @@ const gcd = (a, b) => {
             return i
 }
 
+const checkError = (numerator, denominator) => {
+    if(numerator === 0 && denominator === 0)
+        throw new Error('Indeterminate')
+    if(denominator === 0)
+        throw new Error('Invalid denominator')
+
+}
+
 const simplify = (numerator, denominator) => {
+    checkError(numerator, denominator)
     let divider
     while((divider = gcd(numerator, denominator)) !== 1) {
         numerator = numerator / divider
