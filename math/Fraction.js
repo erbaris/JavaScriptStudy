@@ -19,8 +19,8 @@ Açıklamalar:
  */
 
 const gcd = (a, b) => {
-    let min = Math.abs(a) < Math.abs(b) ? Math.abs(a) : Math.abs(b)
-    for(let i = min; min > 0; min--)
+    let min = Math.min(Math.abs(a), b)
+    for(let i = min; i > 0; i--)
         if(a % i === 0 && b % i === 0)
             return i
 }
@@ -43,8 +43,22 @@ const simplify = (numerator, denominator) => {
     return [numerator, denominator]
 }
 
+const add = (a1, b1, a2, b2) => {
+    return new Fraction(a1 * b2 + a2 * b1, b1 * b2)
+}
+const subtract = (a1, b1, a2, b2) => {
+    return add(a1, b1, -a2, b2)
+}
+const multiply = (a1, b1, a2, b2) => {
+    return new Fraction(a1 * a2, b1 * b2)
+}
+const divide = (a1, b1, a2, b2) => {
+    return multiply(a1, b1, b2, a2)
+}
+
 export class Fraction {
     constructor(numerator, denominator) {
+        checkError(numerator, denominator)
         this._numerator = numerator;
         this._denominator = denominator;
         if(this._denominator < 0) {
@@ -100,55 +114,47 @@ export class Fraction {
     }
 
     equals(other) {
-        return this.numerator.equals(other.numerator) && this.denominator.equals(other.denominator)
+        return this.numerator ===other.numerator && this.denominator === other.denominator
     }
 
     inc() {
         this._numerator += this._denominator
-        [this._numerator, this._denominator] = simplify(this._numerator, this._denominator)
     }
 
     dec() {
         this._numerator -= this._denominator
-        [this._numerator, this._denominator] = simplify(this._numerator, this._denominator)
     }
 
     add(other) {
-        this._numerator = this._numerator * other.denominator + other.numerator * this._denominator
-        this._denominator *= other.denominator
-        [this._numerator, this._denominator] = simplify(this._numerator, this._denominator)
+        return add(this._numerator, this._denominator, other.numerator, other.denominator)
     }
 
     addWithInt(value) {
-        this.numerator += value * this._denominator
+        return add(this._numerator, this._denominator, value, 1)
     }
 
     subtract(other) {
-        this._numerator = this._numerator * other.denominator - other.numerator * this._denominator
-        this._denominator *= other.denominator
-        [this._numerator, this._denominator] = simplify(this._numerator, this._denominator)
+        return subtract(this._numerator, this._denominator, other.numerator, other.denominator)
     }
 
     subtractWithInt(value) {
-        this.numerator -= value * this._denominator
+        return subtract(this._numerator, this._denominator, value, 1)
     }
 
     multiply(other) {
-        this.numerator = this._numerator * other.denominator
-        this.denominator = this._denominator * other.denominator
+        return multiply(this._numerator, this._denominator, other.numerator, other.denominator)
     }
 
     multiplyWithInt(value) {
-        this.numerator *= value
+        return multiply(this._numerator, this._denominator, value, 1)
     }
 
     divide(other) {
-        this.numerator *= other.denominator
-        this.denominator = other.numerator
+        return divide(this._numerator, this._denominator, other.numerator, other.denominator)
     }
 
     divideWithInt(value) {
-        this.denominator *= value
+        return divide(this._numerator, this._denominator, value, 1)
     }
 
     toString() {

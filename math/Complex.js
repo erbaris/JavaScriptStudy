@@ -1,7 +1,7 @@
 const add = (re1, im1, re2, im2) =>  new Complex(re1 + re2, im1 + im2)
 const subtract = (re1, im1, re2, im2) =>  add(re1, im1, -re2, -im2)
 const multiply = (re1, im1, re2, im2) =>  new Complex(re1 * re2 - im1 * im2, re1 * im2 + re2 * im1)
-const divide = (re1, im1, re2, im2) =>  new Complex( (re1 * re2 + im1 * im2) / (re2 * re2 + im2 * im2), (re2 * im1 - re1 * im2) / (re2 * re2 + im2 * im2))
+const divide = (re1, im1, re2, im2) =>  new Complex( (re1 * re2 + im1 * im2) / Math.sqrt(re2 * re2 + im2 * im2), (re2 * im1 - re1 * im2) / Math.sqrt(re2 * re2 + im2 * im2))
 
 export class Complex {
     constructor(real, imaginary) {
